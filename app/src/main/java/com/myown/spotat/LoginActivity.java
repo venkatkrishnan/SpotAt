@@ -3,15 +3,16 @@ package com.myown.spotat;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.hbb20.CountryCodePicker;
 import com.myown.spotat.utils.AppGlobals;
-import com.myown.spotat.utils.LogClass;
 
 /**
  * Created by Admin on 6/2/2017.
@@ -22,11 +23,13 @@ public class LoginActivity extends Activity {
 
     Context context = null;
     AppGlobals appGlobals = null;
+    boolean loginOtpMode = false;
+    View.OnClickListener clickListener = null;
 
     CountryCodePicker countryCodeUI = null;
-    EditText mobileUI = null;
-    Button loginUI = null;
-    View.OnClickListener clickListener = null;
+    Button loginUI = null, continueUI = null;
+    RelativeLayout loginLayoutUI = null, otpLayoutUI = null;
+    EditText mobileUI = null, otp1UI = null, otp2UI = null, otp3UI = null, otp4UI = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,23 @@ public class LoginActivity extends Activity {
 
         countryCodeUI = (CountryCodePicker) findViewById(R.id.country_code);
         mobileUI = (EditText) findViewById(R.id.mobile);
+        otp1UI = (EditText) findViewById(R.id.otp1);
+        otp2UI = (EditText) findViewById(R.id.otp2);
+        otp3UI = (EditText) findViewById(R.id.otp3);
+        otp4UI = (EditText) findViewById(R.id.otp4);
+
         loginUI = (Button) findViewById(R.id.login_btn);
+        continueUI = (Button) findViewById(R.id.continue_btn);
+
+        loginLayoutUI = (RelativeLayout) findViewById(R.id.login_layout);
+        otpLayoutUI = (RelativeLayout) findViewById(R.id.otp_layout);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        reloadLayout();
     }
 
     private void setClickListener() {
@@ -52,21 +71,60 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.login_btn:
-                        Log.d(TAG, "Reached 1");
-                        if(appGlobals.connectionDetector.isConnectingToInternet()) {
-                            appGlobals.logClass.setLogMsg(TAG, "Reached 2", LogClass.DEBUG_MSG);
-                            String countryCode = countryCodeUI.getSelectedCountryCode();
-                            String mobile = mobileUI.getText().toString();
-                            appGlobals.toastMsg(context, countryCode + "-" + mobile, Toast.LENGTH_LONG);
-                        } else {
-                            appGlobals.logClass.setLogMsg(TAG, "Reached 3", LogClass.DEBUG_MSG);
-                            appGlobals.toastMsg(context, getString(R.string.no_network), Toast.LENGTH_LONG);
+                        if(appGlobals.checkNetworkConnection(context)) {
+                            if(!loginOtpMode) {
+                                login();
+                            } else {
+                                otp();
+                            }
                         }
-
                         break;
                 }
             }
         };
         loginUI.setOnClickListener(clickListener);
+    }
+
+    private void login() {
+        String countryCode = countryCodeUI.getSelectedCountryCode();
+        String mobile = mobileUI.getText().toString();
+
+        if(TextUtils.isEmpty(countryCode)) {
+            appGlobals.customToast(context, getString(R.string.invalid_country_code), Toast.LENGTH_LONG);
+            return;
+        } else if(TextUtils.isEmpty(mobile)) {
+            appGlobals.customToast(context, countryCode + "-" + mobile, Toast.LENGTH_LONG);
+            return;
+        }
+
+        appGlobals.customToast(context, countryCode + "-" + mobile, Toast.LENGTH_LONG);
+//        appGlobals.sharedPref.setLoginOtpMode(true);
+        reloadLayout();
+    }
+
+    private void otp() {
+
+        String otp1 = otp1UI.getText().toString();
+        String otp2 = otp2UI.getText().toString();
+        String otp3 = otp3UI.getText().toString();
+        String otp4 = otp4UI.getText().toString();
+
+        if(TextUtils.isEmpty(otp1) || TextUtils.isEmpty(otp2) || TextUtils.isEmpty(otp3) ||
+                TextUtils.isEmpty(otp4)) {
+            appGlobals.customToast(context, getString(R.string.invalid_otp), Toast.LENGTH_LONG);
+            return;
+        }
+    }
+
+    private void reloadLayout() {
+        loginOtpMode = appGlobals.sharedPref.getLoginOtpMode();
+
+        if(!loginOtpMode) {
+            loginLayoutUI.setVisibility(View.VISIBLE);
+            otpLayoutUI.setVisibility(View.GONE);
+        } else {
+            loginLayoutUI.setVisibility(View.GONE);
+            otpLayoutUI.setVisibility(View.VISIBLE);
+        }
     }
 }

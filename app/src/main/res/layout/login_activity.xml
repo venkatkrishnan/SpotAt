@@ -8,34 +8,98 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/default_profile"/>
+        android:src="@drawable/default_profile" />
 
     <RelativeLayout
-        android:id="@+id/login"
+        android:id="@+id/login_layout"
         android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="visible">
 
         <com.hbb20.CountryCodePicker
             android:id="@+id/country_code"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="35dp"
+            android:background="@drawable/curve_border"/>
 
         <EditText
             android:id="@+id/mobile"
             android:layout_toRightOf="@+id/country_code"
             android:layout_toEndOf="@+id/country_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
             android:inputType="numberDecimal"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/curve_border"
             android:hint="@string/mobile"/>
 
         <Button
             android:id="@+id/login_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/mobile"
+            android:layout_below="@+id/country_code"
             android:layout_centerHorizontal="true"
             android:text="@string/login"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/otp_layout"
+        android:layout_marginTop="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/otp1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:inputType="numberDecimal"
+            android:maxLength="1"
+            android:gravity="center"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/otp2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:inputType="numberDecimal"
+            android:maxLength="1"
+            android:layout_toRightOf="@+id/otp1"
+            android:layout_toEndOf="@+id/otp1"
+            android:gravity="center"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:id="@+id/otp3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:inputType="numberDecimal"
+            android:maxLength="1"
+            android:layout_toRightOf="@+id/otp2"
+            android:layout_toEndOf="@+id/otp2"
+            android:gravity="center"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:id="@+id/otp4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:inputType="numberDecimal"
+            android:maxLength="1"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/otp3"
+            android:layout_toEndOf="@+id/otp3"
+            android:textSize="20sp"/>
+
+        <Button
+            android:id="@+id/continue_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/otp1"
+            android:layout_centerHorizontal="true"
+            android:text="@string/cont"/>
     </RelativeLayout>
 </LinearLayout>

@@ -3,6 +3,8 @@ package com.myown.spotat.utils;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.myown.spotat.R;
+
 /**
  * Created by Admin on 6/2/2017.
  */
@@ -52,7 +54,15 @@ public class AppGlobals {
         return true;
     }
 
-    public void toastMsg(Context context, String toastMsg, int duration) {
+    public void customToast(Context context, String toastMsg, int duration) {
         Toast.makeText(context, toastMsg, duration).show();
+    }
+
+    public boolean checkNetworkConnection(Context context) {
+        if(!appGlobals.connectionDetector.isConnectingToInternet()) {
+            appGlobals.customToast(context, context.getString(R.string.no_network), Toast.LENGTH_LONG);
+            return false;
+        }
+        return true;
     }
 }
