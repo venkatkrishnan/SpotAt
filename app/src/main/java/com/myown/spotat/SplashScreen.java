@@ -3,19 +3,9 @@ package com.myown.spotat;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PixelFormat;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.myown.spotat.utils.AppGlobals;
-import com.myown.spotat.utils.LogClass;
 
 /**
  * Created by Admin on 6/2/2017.
