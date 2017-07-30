@@ -19,6 +19,7 @@ class SharedPref {
 
     val DEBUG_MODE : String = "debugMode"
     val LOGIN_OTP_MODE : String = "loginOtpMode"
+    val LOGGED_IN : String = "loggedIn"
 
     fun clearAllPref() {
         editor.clear()
@@ -35,11 +36,20 @@ class SharedPref {
         editor.commit()
     }
 
+    fun setLoggedIn(loggedIn : Boolean) {
+        editor.putBoolean(LOGGED_IN, loggedIn)
+        editor.commit()
+    }
+
     fun getDebugMode() : Boolean {
         return sharedPref.getBoolean(DEBUG_MODE, false)
     }
 
     fun getLoginOtpMode() : Boolean {
         return sharedPref.getBoolean(LOGIN_OTP_MODE, false)
+    }
+
+    fun getLoggedIn() : Boolean {
+        return sharedPref.getBoolean(LOGGED_IN, false)
     }
 }

@@ -27,16 +27,30 @@ class SplashScreen : Activity() {
         context = applicationContext
         appGlobals = AppGlobals.getInstance(context)
 
+        setLog("Reached initializeWidgets", LogClass.DEBUG_MSG)
+
         appGlobals.sharedPref.setDebugMode(true)
 
-        appGlobals.logClass.setLogMsg(TAG, "Reached initializeWidgets", LogClass.DEBUG_MSG)
+        setLog("Completed initializeWidgets", LogClass.DEBUG_MSG)
 
         loadNextActivity()
     }
 
     fun loadNextActivity() {
+        setLog("Reached loadNextActivity", LogClass.DEBUG_MSG)
         this.finish()
-        val activityIntent = Intent(context, LoginActivity::class.java)
+
+        var activityIntent : Intent
+
+        if(appGlobals.sharedPref.getLoggedIn())
+            activityIntent = Intent(context, MainActivity::class.java)
+        else
+            activityIntent = Intent(context, LoginActivity::class.java)
+
         startActivity(activityIntent)
+    }
+
+    fun setLog(msg : String, msgType : Int) {
+        appGlobals.logClass.setLogMsg(TAG, msg, msgType)
     }
 }

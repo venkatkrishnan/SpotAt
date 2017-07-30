@@ -5,11 +5,7 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkInfo
 import android.os.Build
-import android.util.Log
 
-/**
- * Created by Admin on 7/30/2017.
- */
 class ConnectionDetector {
 
     lateinit var context : Context

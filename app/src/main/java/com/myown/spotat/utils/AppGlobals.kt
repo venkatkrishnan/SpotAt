@@ -16,7 +16,7 @@ class AppGlobals {
 
     companion object {
         var appGlobals : AppGlobals ?= null
-        lateinit var appContext : Context
+        var appContext : Context ?= null
 
         fun getInstance(context: Context): AppGlobals {
             if (appGlobals == null) {
@@ -48,7 +48,7 @@ class AppGlobals {
             }*/
         } catch(e : Exception) {
             if(debugMode?:false)
-                appGlobals?.logClass?.setLogMsg(TAG, e.toString(), LogClass.ERROR_MSG);
+                setLog(e.toString(), LogClass.ERROR_MSG);
             return false;
         }
         return true;
@@ -64,5 +64,9 @@ class AppGlobals {
             return false;
         }
         return true;
+    }
+
+    fun setLog(msg : String, msgType : Int) {
+        logClass.setLogMsg(TAG, msg, msgType)
     }
 }

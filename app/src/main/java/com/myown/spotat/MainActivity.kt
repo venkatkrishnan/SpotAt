@@ -27,18 +27,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun initializeWidgets() {
+        context = applicationContext
+        appGlobals = AppGlobals.getInstance(context)
+
+        setLog("Reached initializeWidgets", LogClass.DEBUG_MSG)
+
         toolBar = findViewById(R.id.tool_bar) as Toolbar
         setSupportActionBar(toolBar)
 
-        context = applicationContext
-        appGlobals = AppGlobals.getInstance(context)
         debugMode = appGlobals.debugMode?:false
 
         appGlobals.customToast(context, "Debug " + debugMode, Toast.LENGTH_LONG)
-        appGlobals.logClass.setLogMsg(TAG, "Reached initializeWidgets", LogClass.DEBUG_MSG)
+        setLog("Completed initializeWidgets", LogClass.DEBUG_MSG)
     }
 
     fun setClickListener() {
 
+    }
+
+    fun setLog(msg : String, msgType : Int) {
+        appGlobals.logClass.setLogMsg(TAG, msg, msgType)
     }
 }
