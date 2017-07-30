@@ -5,17 +5,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.myown.spotat.utils.AppGlobals
-
-/**
- * Created by Admin on 7/30/2017.
- */
+import com.myown.spotat.utils.LogClass
 
 class SplashScreen : Activity() {
 
-    val TAG : String = "SplashScreen";
+    val TAG : String = "SplashScreen"
 
-    var context : Context? = null;
-    var appGlobals : AppGlobals? = null;
+    lateinit var context : Context
+    lateinit var appGlobals : AppGlobals
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -29,8 +26,15 @@ class SplashScreen : Activity() {
         context = applicationContext
         appGlobals = AppGlobals.getInstance(context)
 
-        appGlobals?.sharedPref?.debugMode = true
+        appGlobals.sharedPref?.debugMode = true
 
+        appGlobals.logClass?.setLogMsg(TAG, "Reached initializeWidgets", LogClass.DEBUG_MSG)
+
+        loadNextActivity();
+    }
+
+    fun loadNextActivity() {
+        this.finish()
         val activityIntent = Intent(context, LoginActivity::class.java)
         startActivity(activityIntent)
     }

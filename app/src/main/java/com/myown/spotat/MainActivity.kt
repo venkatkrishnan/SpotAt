@@ -6,13 +6,16 @@ import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.widget.Toast
 import com.myown.spotat.utils.AppGlobals
+import com.myown.spotat.utils.LogClass
 
 class MainActivity : AppCompatActivity() {
 
     val TAG : String = "MainActivity"
-    var toolBar : Toolbar? = null
-    var context : Context? = null
-    var appGlobals : AppGlobals? = null
+
+    lateinit var toolBar : Toolbar
+    lateinit var context : Context
+    lateinit var appGlobals : AppGlobals
+
     var debugMode : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,9 +32,10 @@ class MainActivity : AppCompatActivity() {
 
         context = applicationContext;
         appGlobals = AppGlobals.getInstance(context);
-        debugMode = appGlobals?.debugMode ?: false;
+        debugMode = appGlobals.debugMode;
 
-        appGlobals?.toastMsg(context, "Debug " + debugMode, Toast.LENGTH_LONG);
+        appGlobals.customToast(context, "Debug " + debugMode, Toast.LENGTH_LONG);
+        appGlobals.logClass.setLogMsg(TAG, "Reached initializeWidgets", LogClass.DEBUG_MSG);
     }
 
     fun setClickListener() {

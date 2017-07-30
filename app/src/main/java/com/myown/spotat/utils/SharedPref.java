@@ -11,6 +11,7 @@ public class SharedPref {
     SharedPreferences.Editor editor;
 
     private final String DEBUG_MODE = "debugMode";
+    private final String LOGIN_OTP_MODE = "loginOtpMode";
 
     public SharedPref(Context context) {
         pref = context.getSharedPreferences(context.getString(R.string.app_name), context.MODE_PRIVATE);
@@ -27,7 +28,16 @@ public class SharedPref {
         editor.commit();
     }
 
+    public void setLoginOtpMode(boolean loginOtp) {
+        editor.putBoolean(LOGIN_OTP_MODE, loginOtp);
+        editor.commit();
+    }
+
     public boolean getDebugMode() {
-        return pref.getBoolean(DEBUG_MODE, false);
+        return pref.getBoolean(LOGIN_OTP_MODE, false);
+    }
+
+    public boolean getLoginOtpMode() {
+        return pref.getBoolean(LOGIN_OTP_MODE, false);
     }
 }
