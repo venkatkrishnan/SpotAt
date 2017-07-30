@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import com.myown.spotat.utils.AppGlobals
 import com.myown.spotat.utils.LogClass
 
@@ -16,21 +17,21 @@ class SplashScreen : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash_screen);
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.splash_screen)
 
-        initializeWidgets();
+        initializeWidgets()
     }
 
     fun initializeWidgets() {
         context = applicationContext
         appGlobals = AppGlobals.getInstance(context)
 
-        appGlobals.sharedPref?.debugMode = true
+        appGlobals.sharedPref.setDebugMode(true)
 
-        appGlobals.logClass?.setLogMsg(TAG, "Reached initializeWidgets", LogClass.DEBUG_MSG)
+        appGlobals.logClass.setLogMsg(TAG, "Reached initializeWidgets", LogClass.DEBUG_MSG)
 
-        loadNextActivity();
+        loadNextActivity()
     }
 
     fun loadNextActivity() {

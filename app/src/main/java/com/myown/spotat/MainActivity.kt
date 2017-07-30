@@ -27,15 +27,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun initializeWidgets() {
-        toolBar = findViewById(R.id.tool_bar) as Toolbar;
-        setSupportActionBar(toolBar);
+        toolBar = findViewById(R.id.tool_bar) as Toolbar
+        setSupportActionBar(toolBar)
 
-        context = applicationContext;
-        appGlobals = AppGlobals.getInstance(context);
-        debugMode = appGlobals.debugMode;
+        context = applicationContext
+        appGlobals = AppGlobals.getInstance(context)
+        debugMode = appGlobals.debugMode?:false
 
-        appGlobals.customToast(context, "Debug " + debugMode, Toast.LENGTH_LONG);
-        appGlobals.logClass.setLogMsg(TAG, "Reached initializeWidgets", LogClass.DEBUG_MSG);
+        appGlobals.customToast(context, "Debug " + debugMode, Toast.LENGTH_LONG)
+        appGlobals.logClass.setLogMsg(TAG, "Reached initializeWidgets", LogClass.DEBUG_MSG)
     }
 
     fun setClickListener() {

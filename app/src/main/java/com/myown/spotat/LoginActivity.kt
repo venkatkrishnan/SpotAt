@@ -72,9 +72,9 @@ class LoginActivity : AppCompatActivity() {
         loginUI.setOnClickListener({
             if(appGlobals.checkNetworkConnection(context)) {
                 if(!loginOtpMode) {
-                    login();
+                    login()
                 } else {
-                    otp();
+                    otp()
                 }
             } else {
                 appGlobals.customToast(context, resources.getString(R.string.no_network), Toast.LENGTH_LONG)
@@ -87,7 +87,7 @@ class LoginActivity : AppCompatActivity() {
         val countryCode = countryCodeUI.selectedCountryCode
         val mobile = mobileUI.text
 
-        appGlobals.logClass.setLogMsg(TAG, "Reached login", LogClass.DEBUG_MSG);
+        appGlobals.logClass.setLogMsg(TAG, "Reached login", LogClass.DEBUG_MSG)
 
         if(TextUtils.isEmpty(countryCode)) {
             appGlobals.customToast(context, resources.getString(R.string.invalid_country_code), Toast.LENGTH_LONG)
@@ -98,13 +98,13 @@ class LoginActivity : AppCompatActivity() {
         }
 
         appGlobals.customToast(context, countryCode + "-" + mobile, Toast.LENGTH_LONG)
-        appGlobals.sharedPref.loginOtpMode = true;
+        appGlobals.sharedPref.setLoginOtpMode(true)
         reloadLayout()
     }
 
     fun otp() {
 
-        appGlobals.logClass.setLogMsg(TAG, "Reached otp", LogClass.DEBUG_MSG);
+        appGlobals.logClass.setLogMsg(TAG, "Reached otp", LogClass.DEBUG_MSG)
 
         val otp1 = otp1UI.text
         val otp2 = otp2UI.text
@@ -119,7 +119,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun reloadLayout() {
-        loginOtpMode = appGlobals.sharedPref?.loginOtpMode ?: false
+        loginOtpMode = appGlobals.sharedPref.getLoginOtpMode()
 
         if(!loginOtpMode) {
             loginLayoutUI.visibility = View.VISIBLE
